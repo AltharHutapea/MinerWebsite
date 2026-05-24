@@ -2,7 +2,7 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import connection from './database/db.js';
-import indexData from './database/dataindex.js';
+import indexData from '../src/database/dataindex.js';
 import cors from 'cors';
 
 const router = express.Router();
