@@ -5,6 +5,10 @@ const connection = await mysql.createConnection({
   user: "2n32FnfBzv4XyJi.root",
   password: "GdNOFr9wpqZnn3ml",
   database: "sys",
+  ssl: {
+    minVersion: 'TLSv1.2',
+    rejectUnauthorized: true
+  }
 });
 
 try {
@@ -14,4 +18,4 @@ try {
   console.log("connection failed : ", error);
 }
 
-export default connection; 
+export default connection;
