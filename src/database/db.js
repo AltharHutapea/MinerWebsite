@@ -5,11 +5,7 @@ const connection = await mysql.createConnection({
   user: "2n32FnfBzv4XyJi.root",
   password: "GdNOFr9wpqZnn3ml",
   database: "sys",
-  port: "4000",
-  ssl: {
-    minVersion: 'TLSv1.2',
-    rejectUnauthorized: true
-  }
+  port: "4000"
 });
 
 try {
