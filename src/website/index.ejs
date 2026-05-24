@@ -23,108 +23,120 @@
     body {
         background-color: #bb9e7c;
         font-family: "DynaPuff", sans-serif;
+        /* Menggunakan flexbox agar kotak login otomatis di tengah layar */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+    }
+    form {
+        width: 100%;
+        max-width: 500px; /* Lebar maksimal kotak login */
     }
     .form-login {
         background: lightblue;
         padding: 30px;
         border-radius: 20px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Efek bayangan halus */
-        width: 600px;
-        height: 300px;
-        justify-items: center;
-        margin-top: 270px;
-        margin-left: 650px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+        width: 100%; /* Lebar mengikuti pembungkusnya */
+        display: flex;
+        flex-direction: column;
+        gap: 15px; /* Memberi jarak otomatis antar elemen di dalamnya */
         font-size: 20px;
     }
-    form div label{
+    .input-group {
+        display: flex;
+        flex-direction: column;
+    }
+    form div label {
         background-color: red;
         color: aqua;
-        margin-left: 120px;
+        padding: 2px 5px;
+        align-self: flex-start; /* Label hanya selebar teksnya saja */
     }
-    form div input{
+    form div input {
         background-color: yellow;
         font-size: 20px;
         color: green;
-        margin-left: 120px;
         margin-top: 0.3rem;
         margin-bottom: 0.3rem;
-    }
-    form div p {
-        margin-left: 120px;
+        padding: 5px;
+        width: 100%; /* Kotak input memenuhi lebar form */
+        border: 1px solid #ccc;
+        border-radius: 5px;
     }
     #daftar {
         text-decoration: none;
         color: white;
         background-color: brown;
-        transition: all;
-        transition-duration: 700ms;
+        transition: all 700ms;
         border-bottom: 1px solid rgba(255, 68, 0, 0);
         font-size: 20px;
+        padding: 0 5px;
     }
-    #daftar:hover{
+    #daftar:hover {
         color: orangered;
         border-bottom: 1px solid orangered;
-        background-color: rgb(45, 245, 75)  ;
+        background-color: rgb(45, 245, 75);
     }
     .submit {
-        background-color: violet;
-        color: green;
-        justify-items: center;
-        margin-top: 20px;
-        margin-left: 230px;
-        width: 25px;
+        display: flex;
+        justify-content: center; /* Tombol enter otomatis di tengah */
+        margin-top: 10px;
     }
     .submit button {
         background-color: yellow;
         color: green;
-        padding: 5px 20px;
+        padding: 8px 30px;
         cursor: pointer;
-        transition: all;
-        transition-duration: 700ms;
-        border-bottom: 1px solid rgba(255, 68, 0, 0);
+        transition: all 700ms;
+        border: 1px solid rgba(255, 68, 0, 0);
+        border-radius: 5px;
         font-size: 20px;
         text-decoration: none;
     }
-    .submit button:hover{
+    .submit button:hover {
         color: orangered;
         border-bottom: 1px solid orangered;
         background-color: aqua;
     }
-
 </style>
 <body>
     <form>
         <div class="form-login">
             <p>Hai, silahkan login yah ^_^ </p>
-            <div class="username">
-                <label>Username: </label>
+            
+            <!-- Mengelompokkan label dan input agar lebih rapi -->
+            <div class="input-group">
+                <label for="username">Username: </label>
                 <input type="text" placeholder="Masukkan username" id="username">
             </div>
-            <div class="password">
-                <label>Password: </label>
+            
+            <div class="input-group">
+                <label for="password">Password: </label>
                 <input type="password" placeholder="Masukkan password" id="password">
             </div>
 
             <p>Belum punya akun? silahkan <a href="" id="daftar">daftar</a></p>
+            
             <div class="submit">
-                <button  type="submit" id="enter">Enter</button>
+                <button type="submit" id="enter">Enter</button>
             </div>
         </div>
     </form>
 </body>
 <script>
-    // --- TAMBAHKAN KODE LOGIN DI BAWAH INI ---
     const tombol = document.getElementById("enter");
     const inputUser = document.getElementById("username");
     const inputPassword = document.getElementById("password");
 
     async function prosesMasukAkun(event) {
-        event.preventDefault(); // Menahan halaman agar tidak reload/refresh
+        event.preventDefault(); 
 
         let User = inputUser.value;
         let Pass = inputPassword.value;
 
-        // Kirim data ke backend Node.js
         const respon = await fetch('/prosesdata', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -133,12 +145,9 @@
 
         const hasil = await respon.json();
 
-        // Cek jawaban dari server
         if (hasil.sukses) {
-            // Jika database cocok, lempar ke rute /dashboard
             window.location.href = '/dashboard'; 
         } else {
-            // Jika salah, tampilkan pesan error lewat alert browser
             alert(hasil.pesan);
         }
     };
