@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <link href="https://googleapis.com" rel="stylesheet">
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background: #f0f2f5;
+        color: #1a1a2e;
+        overflow-x: hidden;
+    }
+
+    .container {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    .sidebar {
+        width: 280px;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        color: white;
+        position: fixed;
+        height: 100vh;
+        display: flex; 
+        flex-direction: column; 
+        justify-content: space-between; 
+        transition: transform 0.3s ease-in-out;
+        z-index: 1001; 
+    }
+
+    .sidebar-menu-wrapper {
+        overflow-y: auto;
+        flex: 1;
+    }
+
+    .sidebar-header {
+        padding: 25px 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        text-align: center;
+    }
+
+    .sidebar-header h2 {
+        font-size: 1.5rem;
+        margin-bottom: 5px;
+    }
+
+    .sidebar-header p {
+        font-size: 0.8rem;
+        opacity: 0.7;
+    }
+
+    .nav-menu {
+        padding: 20px 0;
+    }
+
+    .nav-item {
+        padding: 12px 25px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: rgba(255,255,255,0.8);
+        text-decoration: none;
+        transition: all 0.3s;
+        cursor: pointer;
+    }
+
+    .nav-item:hover, .nav-item.active {
+        background: rgba(255,255,255,0.1);
+        color: white;
+        border-left: 3px solid #e94560;
+    }
+
+    .nav-item i {
+        width: 20px;
+        font-size: 1.1rem;
+    }
+
+    .sidebar-footer {
+        padding: 15px 0;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-logout {
+        color: #ff4d4d;
+        font-weight: 600;
+    }
+
+    .btn-logout:hover {
+        background: rgba(255, 77, 77, 0.1);
+        color: #ff6666;
+        border-left: 3px solid #ff4d4d;
+    }
+
+    .main-content {
+        flex: 1;
+        margin-left: 280px;
+        padding: 20px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .top-header {
+        background: white;
+        border-radius: 12px;
+        padding: 15px 25px;
+        margin-bottom: 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .header-left-side {
+        display: flex;
+        align-items: center;
+        gap: 15px; 
+    }
+
+    .page-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .user-avatar {
+        width: 40px;
+        height: 40px;
+        background: #e94560;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: white;
+    }
+
+    .icon-list {
+        font-size: 30px;
+        display: none; 
+        color: #1a1a2e;
+        cursor: pointer;
+        z-index: 1002; 
+        transition: all 0.3s ease-in-out;
+    }
+
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 1000;
+    }
+
+    .sidebar-overlay.active {
+        display: block;
+    }
+
+    @media (max-width: 768px) {
+        .sidebar.sembunyikan {
+            transform: translateX(-100%);
+        }
+        
+        .main-content {
+            margin-left: 0;
+        }
+
+        .icon-list {
+            display: flex;
+            align-items: center;
+        }
+        .icon-list:hover{
+            color: #e94560;
+        }
+
+        .sidebar:not(.sembunyikan) ~ .main-content .icon-list {
+            position: fixed;
+            display: none;
+            left: 295px;
+            top: 40px;
+            color: #e94560; 
+        }
+
+        .page-title {
+            font-size: 1.2rem;
+        }
+
+        .user-info p {
+            display: none; 
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="container">
+        <div class="sidebar sembunyikan" id="sidebarMenu">
+            <div class="sidebar-menu-wrapper">
+                <div class="sidebar-header">
+                    <h2>Miner Website</h2>
+                    <p>Dashboard</p>
+                </div>
+                <div class="nav-menu">
+                    <a class="nav-item active"><i class="fas fa-chart-line"></i>Dashboard</a>
+                    <a class="nav-item"><i class="fas fa-book-open"></i> Inventory</a>
+                    <a class="nav-item"><i class="fas fa-tags"></i> Building</a>
+                    <a class="nav-item"><i class="fas fa-hand-holding"></i> Employees</a>
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <a href="/logout" class="nav-item btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Keluar
+                </a>
+            </div>
+        </div>
+        <div class="main-content">
+            <header class="top-header">
+                <div class="header-left-side">
+                    <div class="icon-list" id="icon-list">
+                        <i class="ph ph-list"></i>
+                    </div>
+                    <div class="page-title"> Hai <%= username %>!</div>
+                </div>
+
+                <div class="user-info">
+                    <p> <%= username %> </p>
+                    <div class="user-avatar">
+                        <%= username.charAt(0).toUpperCase() %>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-body">
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const IconList = document.getElementById("icon-list");
+    const MenuList = document.getElementById("sidebarMenu");
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    IconList.addEventListener("click", () => {
+        MenuList.classList.toggle("sembunyikan");
+        sidebarOverlay.classList.toggle('active');
+    });
+
+    sidebarOverlay.addEventListener('click', () => {
+        MenuList.classList.add('sembunyikan');
+        sidebarOverlay.classList.remove('active');
+    });
+
+    window.addEventListener('pageshow', function (event) {
+        if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+            window.location.reload();
+        }
+    });
+</script>
+</html>
