@@ -5,7 +5,12 @@ const connection = await mysql.createConnection({
   user: "2n32FnfBzv4XyJi.root",
   password: "GdNOFr9wpqZnn3ml",
   database: "sys",
-  port: "4000"
+  port: 4000, // DIUBAH: Menjadi angka tanpa tanda kutip
+  // TAMBAHKAN KODE DI BAWAH INI
+  ssl: {
+    minVersion: 'TLSv1.2',
+    rejectUnauthorized: true
+  }
 });
 
 try {
