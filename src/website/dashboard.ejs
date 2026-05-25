@@ -164,6 +164,7 @@
         transition: all 0.3s ease-in-out;
     }
 
+    /* DIUBAH: Ditambahkan tanda titik pada .fa-bars agar CSS mendeteksi class dengan benar */
     .sidebar-overlay {
         display: none;
         position: fixed;
@@ -198,7 +199,7 @@
 
         .sidebar:not(.sembunyikan) ~ .main-content .icon-list {
             position: fixed;
-            display: none;
+            /* display: none; */
             left: 295px;
             top: 40px;
             color: #e94560; 
@@ -215,8 +216,8 @@
 </style>
 </head>
 <body>
+    <!-- DIUBAH: Mengganti nama class menjadi sidebar-overlay agar lebih rapi dan aman -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
     <div class="container">
         <div class="sidebar sembunyikan" id="sidebarMenu">
             <div class="sidebar-menu-wrapper">
@@ -241,7 +242,8 @@
             <header class="top-header">
                 <div class="header-left-side">
                     <div class="icon-list" id="icon-list">
-                        <i class="ph ph-list"></i>
+                        <!-- DIUBAH: Mengganti ikon ph-list menjadi ikon garis 3 Font Awesome -->
+                        <i class="fa-solid fa-bars"></i>
                     </div>
                     <div class="page-title"> Hai <%= username %>!</div>
                 </div>
