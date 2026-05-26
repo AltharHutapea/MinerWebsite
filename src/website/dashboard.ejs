@@ -164,7 +164,6 @@
         transition: all 0.3s ease-in-out;
     }
 
-    /* DIUBAH: Ditambahkan tanda titik pada .fa-bars agar CSS mendeteksi class dengan benar */
     .sidebar-overlay {
         display: none;
         position: fixed;
@@ -179,8 +178,29 @@
     .sidebar-overlay.active {
         display: block;
     }
+    #jam {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: blue;
+        color: blue;
+        position: absolute;
+        left: 60%;
+        transform: translateX(-50%);
+        margin: 0;
+        white-space: nowrap
+    }
 
     @media (max-width: 768px) {
+        #jam {
+            color: blue;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 0;
+            white-space: nowrap;
+            font-size: 0.9rem;
+        } 
         .sidebar.sembunyikan {
             transform: translateX(-100%);
         }
@@ -197,7 +217,7 @@
             color: #e94560;
         }
 
-        .sidebar:not(.sembunyikan) ~ .main-content .icon-list {
+        .sidebar:not(.sembunyikan)  .main-content .icon-list {
             position: fixed;
             /* display: none; */
             left: 295px;
@@ -216,7 +236,6 @@
 </style>
 </head>
 <body>
-    <!-- DIUBAH: Mengganti nama class menjadi sidebar-overlay agar lebih rapi dan aman -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <div class="container">
         <div class="sidebar sembunyikan" id="sidebarMenu">
@@ -230,6 +249,7 @@
                     <a class="nav-item"><i class="fas fa-book-open"></i> Inventory</a>
                     <a class="nav-item"><i class="fas fa-tags"></i> Building</a>
                     <a class="nav-item"><i class="fas fa-hand-holding"></i> Employees</a>
+                    <a class="nav-item"><i class="fas fa-arrow-up"></i>Upgrade</a>
                 </div>
             </div>
             <div class="sidebar-footer">
@@ -242,20 +262,20 @@
             <header class="top-header">
                 <div class="header-left-side">
                     <div class="icon-list" id="icon-list">
-                        <!-- DIUBAH: Mengganti ikon ph-list menjadi ikon garis 3 Font Awesome -->
                         <i class="fa-solid fa-bars"></i>
                     </div>
                     <div class="page-title"> Hai <%= username %>!</div>
                 </div>
 
                 <div class="user-info">
+                    <p id="jam">Jam server: <span class="jam">00.00.00</span></p>
                     <p> <%= username %> </p>
+                    
                     <div class="user-avatar">
                         <%= username.charAt(0).toUpperCase() %>
                     </div>
                 </div>
             </header>
-
             <div class="content-body">
             </div>
         </div>
@@ -281,5 +301,20 @@
             window.location.reload();
         }
     });
+    function tampilkanJam(){
+        const waktu = new Date();
+        const jamSekarang = waktu.toLocaleTimeString('id-ID');
+        
+        // Cari elemen dengan class "jam" yang ada di halaman
+        const elemenJam = document.querySelector('.jam');
+        
+        if (elemenJam) {
+            elemenJam.innerText = jamSekarang;
+        }
+    }
+    tampilkanJam();
+    
+    // Jalankan otomatis setiap 1 detik
+    setInterval(tampilkanJam, 1000);
 </script>
 </html>
