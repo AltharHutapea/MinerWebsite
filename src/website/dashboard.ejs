@@ -124,6 +124,7 @@
         justify-content: space-between;
         align-items: center;
         box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        position: relative;
     }
 
     .header-left-side {
@@ -183,12 +184,11 @@
         align-items: center;
         justify-content: center;
         color: blue;
-        color: blue;
         position: absolute;
-        left: 60%;
+        left: 50%;
         transform: translateX(-50%);
         margin: 0;
-        white-space: nowrap
+        white-space: nowrap;
     }
 
     @media (max-width: 768px) {
@@ -199,8 +199,9 @@
             transform: translateX(-50%);
             margin: 0;
             white-space: nowrap;
-            font-size: 0.9rem;
+            font-size: clamp(0.7rem, 2.8vw, 1rem); 
         } 
+        
         .sidebar.sembunyikan {
             transform: translateX(-100%);
         }
@@ -216,17 +217,16 @@
         .icon-list:hover{
             color: #e94560;
         }
-
-        .sidebar:not(.sembunyikan)  .main-content .icon-list {
+        .sidebar:not(.sembunyikan) ~ .main-content .icon-list {
             position: fixed;
-            /* display: none; */
+            display: none;
             left: 295px;
             top: 40px;
             color: #e94560; 
         }
 
         .page-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
 
         .user-info p {
@@ -266,9 +266,9 @@
                     </div>
                     <div class="page-title"> Hai <%= username %>!</div>
                 </div>
+                <p id="jam"><span class="jam"> 00.00.00 </span></p>
 
                 <div class="user-info">
-                    <p id="jam">Jam server: <span class="jam">00.00.00</span></p>
                     <p> <%= username %> </p>
                     
                     <div class="user-avatar">
@@ -301,11 +301,11 @@
             window.location.reload();
         }
     });
+
     function tampilkanJam(){
         const waktu = new Date();
         const jamSekarang = waktu.toLocaleTimeString('id-ID');
         
-        // Cari elemen dengan class "jam" yang ada di halaman
         const elemenJam = document.querySelector('.jam');
         
         if (elemenJam) {
@@ -313,8 +313,6 @@
         }
     }
     tampilkanJam();
-    
-    // Jalankan otomatis setiap 1 detik
     setInterval(tampilkanJam, 1000);
 </script>
 </html>
