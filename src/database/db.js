@@ -14,6 +14,18 @@ const connection = await mysql.createConnection({
 });
 
 try {
+  // 2. Buat database secara otomatis jika belum ada di server
+  await connection.query("CREATE DATABASE IF NOT EXISTS db_minerwebsite");
+  console.log("Database siap digunakan (sudah ada / baru dibuat).");
+
+  // 3. Masuk dan gunakan database tersebut
+  await connection.query("USE db_minerwebsite");
+
+} catch (error) {
+  console.log("Gagal menyiapkan database: ", error.message);
+}
+
+try {
   await connection.query("SELECT 10");
   console.log("database connection success ...");
 } catch (error) {
