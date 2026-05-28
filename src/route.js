@@ -15,13 +15,4 @@ router.use(express.static("../src"));
 
 router.use('/', indexData);
 
-router.get("/mainmenu", (req, res) => {
-    res.sendFile(join(__dirname, '../src/website/mainmenu.html'));
-});
-
-router.get("/dashboard", (req, res)=>{
-    res.sendFile(join(__dirname, '../src/website/dashboard.html'));
-});
-
-
 export default router;
