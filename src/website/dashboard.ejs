@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="icon" href="../img/LogoWebsite.png">
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../website/css/dashboard.css">
+    <script src="../website/js/dashboard.js"></script>
+</head>
+<body>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="container">
+        <div class="sidebar sembunyikan" id="sidebarMenu">
+            <div class="sidebar-menu-wrapper">
+                <div class="sidebar-header">
+                    <h2>Miner Website</h2>
+                    <p>Dashboard</p>
+                </div>
+                <div class="nav-menu">
+                    <a class="nav-item active"><i class="fas fa-chart-line"></i>Dashboard</a>
+                    <a class="nav-item"><i class="fas fa-book-open"></i> Inventory</a>
+                    <a class="nav-item"><i class="fas fa-tags"></i> Building</a>
+                    <a class="nav-item"><i class="fas fa-hand-holding"></i> Employees</a>
+                    <a class="nav-item"><i class="fas fa-plus"></i>Upgrade</a>
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <a href="/logout" class="nav-item btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Keluar
+                </a>
+            </div>
+        </div>
+        <div class="main-content">
+            <header class="top-header">
+                <div class="header-left-side">
+                    <div class="icon-list" id="icon-list">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+                    <div class="page-title"> Hai <%= username %>!</div>
+                </div>
+                <p id="jam"><span class="jam"> 00.00.00 </span></p>
+                <div class="user-info">
+                    <p>
+                        <%= username %>
+                    </p>
+                    <div class="user-avatar">
+                        <%= username.charAt(0).toUpperCase() %>
+                    </div>
+                    <button class="gear-profile" id="gear-profile"><i class="fa-solid fa-gear"></i></button>
+                </div>
+            </header>
+            <div class="content-body">
+                <div class="profile">
+                    <a href="/profile"> <i class="fa-solid fa-user"></i> Profile</a>
+                    <a href=""> <i class="fa-solid fa-gears"></i> <button id="settings">Settings</button> </a>
+                </div>
+                <!-- baru -->
+                <div class="class-company">
+                    <!-- BARIS ATAS: Judul utama -->
+                    <div class="label-company">
+                        <p class="label"><i class="fa-solid fa-building"></i> Perusahaan</p>
+                    </div>
+
+                    <!-- BARIS BAWAH: Konten Informasi & Tombol -->
+                    <div class="company-content-wrapper">
+                        <% let daftarPerusahaan=[]; for (let i=1; i <=10; i++) { if (namaPerusahaan &&
+                            namaPerusahaan['name_company_' + i]) { daftarPerusahaan.push({ slot: i, id:
+                            namaPerusahaan['id_company_' + i], nama: namaPerusahaan['name_company_' + i], deskripsi:
+                            namaPerusahaan['deskripsi_company_' + i] || 'Tidak ada deskripsi.' , xp:
+                            namaPerusahaan['xp_company_' + i] || 0, level: namaPerusahaan['level_company_' + i] || 1, /*
+                            MEMBACA DATA DINAMIS BARU DARI DATABASE */ balance: namaPerusahaan['balance_company_' + i]
+                            || 0, karyawan: namaPerusahaan['total_karyawan_' + i] || 0 }); } } %>
+
+                            <!-- Cek Data Perusahaan -->
+                            <% if (daftarPerusahaan.length===0) { %>
+                                <p class="empty-text">Perusahaanmu masih kosong. Silakan buat Perusahaan pertama Anda di
+                                    atas!</p>
+                                <% } else { %>
+                                    <!-- Struktur grid kartu baru untuk menampung informasi lengkap -->
+                                    <div class="grid-company-cards">
+                                        <% daftarPerusahaan.forEach(function(comp) { %>
+                                            <div class="card-company-detail" data-slot="<%= comp.slot %>">
+                                                <!-- Bagian Header Kartu -->
+                                                <div class="card-company-header">
+                                                    <span class="company-id">Id perusahaan: <%= comp.id %></span>
+                                                    <span class="company-level">Lv. <%= comp.level %></span>
+                                                </div>
+
+                                                <!-- Bagian Nama Perusahaan -->
+                                                <h4 class="company-title">
+                                                    <%= comp.nama %>
+                                                </h4>
+
+                                                <!-- Bagian Deskripsi Perusahaan -->
+                                                <p class="company-desc">
+                                                    <%= comp.deskripsi %>
+                                                </p>
+                                                <!-- Bagian Kelompok Status Informasi -->
+                                                <div class="company-stats-group">
+                                                    <div class="status-row">
+                                                        <span class="status-label">Progress XP:</span>
+                                                        <span class="xp-value">
+                                                            <%= comp.xp %> XP
+                                                        </span>
+                                                    </div>
+                                                    <div class="status-row">
+                                                        <span class="status-label">Balance:</span>
+                                                        <span class="balance-value">$<%= comp.balance %></span>
+                                                    </div>
+                                                    <div class="status-row">
+                                                        <span class="status-label">Karyawan:</span>
+                                                        <span class="karyawan-value">
+                                                            <%= comp.karyawan %>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <% }); %>
+                                    </div>
+                                    <% } %>
+
+                                        <!-- Tombol Tambah Perusahaan -->
+                                        <% if (daftarPerusahaan.length < 10) { %>
+                                            <div class="icon-button">
+                                                <button class="button-edit" id="btnTambahCompany"
+                                                    data-total="<%= daftarPerusahaan.length %>">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+                                            </div>
+                                            <% } %>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

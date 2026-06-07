@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Miner Website</title>
+    <link rel="icon" href="../img/LogoWebsite.png">
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../website/css/profile.css">
+</head>
+
+
+<body>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="container">
+        <div class="sidebar sembunyikan" id="sidebarMenu">
+            <div class="sidebar-menu-wrapper">
+                <div class="sidebar-header">
+                    <h2>Miner Website</h2>
+                    <p>Profile</p>
+                </div>
+                <div class="nav-menu">
+                    <a class="nav-item active"> <i class="fa-solid fa-user"></i> Profile</a>
+                    <a href="/dashboard" class="nav-item"><i class="fas fa-chart-line"></i>Dashboard</a>
+                    <a class="nav-item"><i class="fas fa-book-open"></i> Inventory</a>
+                    <a class="nav-item"><i class="fas fa-tags"></i> Building</a>
+                    <a class="nav-item"><i class="fas fa-hand-holding"></i> Employees</a>
+                    <a class="nav-item"><i class="fas fa-plus"></i>Upgrade</a>
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <a href="/logout" class="nav-item btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Keluar
+                </a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <header class="top-header">
+                <div class="header-left-side">
+                    <div class="icon-list" id="icon-list">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+                    <div class="page-title"> Hai <%= username %>!</div>
+                </div>
+                <p id="jam"><span class="jam"> 00.00.00 </span></p>
+                <div class="user-info">
+                    <p>
+                        <%= username %>
+                    </p>
+
+                    <!-- KUNCI SINKRONISASI: Menambahkan id dan data-avatar-file sesuai data dari database -->
+                    <div class="user-avatar" id="header-avatar"
+                        data-avatar-file="<%= typeof profile !== 'undefined' && profile ? profile : 'default-avatar.png' %>">
+                        <%= username.charAt(0).toUpperCase() %>
+                    </div>
+
+                    <button class="gear-profile" id="gear-profile"><i class="fa-solid fa-gear"></i></button>
+                </div>
+
+            </header>
+
+            <div class="content-body">
+                <div class="profile" id="profileMenu">
+                    <a href="#"> <i class="fa-solid fa-user"></i> Profile</a>
+                    <a href="#"> <i class="fa-solid fa-gears"></i> <button id="settings">Settings</button> </a>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div>
+                            <div class="stat-number">Profile</div>
+                            <div class="stat-label">
+                                <div class="user-avatar" id="profile-avatar"
+                                    data-avatar-file="<%= typeof profile !== 'undefined' && profile ? profile : 'default-avatar.png' %>">
+                                    <%= typeof username !=='undefined' && username ? username.charAt(0).toUpperCase()
+                                        : 'U' %>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="stat-icon">
+                            <button class="button-edit" id="btn-avatar"><i class="fas fa-edit"></i></button>
+                        </div>
+                    </div>
+
+
+                    <div class="stat-card">
+                        <div>
+                            <div class="stat-number">ID</div>
+                            <div class="stat-label">
+                                <%= id %>
+                            </div>
+                        </div>
+                        <div class="stat-icon"><i class="fas fa-basketball"></i></div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div>
+                            <div class="stat-number">Username</div>
+                            <div class="stat-label" id="teks-username">
+                                <%= username %>
+                            </div>
+                        </div>
+                        <div class="stat-icon">
+                            <button class="button-edit" id="btn-username"><i class="fas fa-edit"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div>
+                            <div class="stat-number">Password</div>
+                            <div class="stat-label" id="teks-password" data-real="<%= password %>"></div>
+                        </div>
+                        <div class="stat-icon">
+                            <button class="button-show" id="tombol-mata-password"><i class="fas fa-eye"></i></button>
+                            <button class="button-edit" id="btn-password"><i class="fas fa-edit"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div>
+                            <div class="stat-number">Email</div>
+                            <div class="stat-label" id="teks-email" data-real="<%= email %>"></div>
+                        </div>
+                        <div class="stat-icon">
+                            <button class="button-show" id="tombol-mata-email"><i class="fas fa-eye"></i></button>
+                            <button class="button-edit" id="btn-email"><i class="fas fa-edit"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div>
+                            <div class="stat-number">Bio</div>
+                            <div class="stat-label" id="bio-text">
+                                <%= bio || 'Belum ada bio' %>
+                            </div>
+                        </div>
+                        <div class="stat-icon">
+                            <button class="button-edit" id="btn-bio"><i class="fas fa-edit"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../website/js/profile.js"></script>
+
+</html>

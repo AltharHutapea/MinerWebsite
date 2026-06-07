@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register akun</title>
+    <link rel="icon" href="/LogoWebsite.png">
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap" rel="stylesheet">
+    <!-- icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" href="../website/css/register.css">
+    <script src="../website/js/register.js"></script>
+</head>
+<body>
+    <form>
+        <div class="form-login">
+            <div class="input-group">
+                <label>Username: </label>
+                <input type="text" placeholder="Masukkan username" id="username">
+            </div>
+            <div class="input-group">
+                <label>Email: </label>
+                <input type="email" placeholder="example@gmail.com" id="email">
+            </div>
+            <div class="input-group">
+                <label>Password: </label>
+                <div class="password-wrapper">
+                    <input type="password" placeholder="Masukkan password" id="password" >
+                    <i class="ph ph-eye" id="togglePassword"></i>
+                </div>
+            </div>
+            <p>Sudah punya akun? silahkan <a href="/">login</a></p>
+            <div class="submit">
+                <button type="submit" id="masuk">Enter</button>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
